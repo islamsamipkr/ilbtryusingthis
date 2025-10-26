@@ -150,7 +150,7 @@ resource "google_compute_target_https_proxy" "default" {
 
 resource "google_compute_global_forwarding_rule" "serverlesshttploadbalancerfrontend" {
   ip_protocol           = "TCP"
-  load_balancing_scheme = "EXTERNAL_MANAGED"
+  load_balancing_scheme = "INTERNAL_MANAGED"
   name                  = "frontend"
   ip_address            = var.glb_ip_address # google_compute_global_address.cloudfunctionip.address
   port_range            = "443-443"
