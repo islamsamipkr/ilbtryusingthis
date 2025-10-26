@@ -1,0 +1,6 @@
+  putUpdateLegacyInvoice:
+    version: v2
+  invoiceDetails:
+    version: v2
+  invoicesFreight:
+    version: v2
