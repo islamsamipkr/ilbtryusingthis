@@ -57,6 +57,14 @@ variable "ssl" {
 
 variable "dns_suffix" {
   description = "DNS suffix used for the environment"
+
   type        = string
   default  ="ebill"
 }
+variable "default_backend_function" {
+  description = "DNS suffix used for the environment"
+
+  type        = string
+  default  ="putUpdateLegacyInvoice"
+}
+
