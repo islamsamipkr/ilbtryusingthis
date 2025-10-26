@@ -77,7 +77,7 @@ resource "google_compute_backend_service" "mobilitybackendservice" {
   }
 
   # The below security policy is from cloudarmorfactory
-  security_policy = var.cloudarmorlink
+  //security_policy = var.cloudarmorlink
 
   dynamic "backend" {
     for_each = each.value.neg_self_links
