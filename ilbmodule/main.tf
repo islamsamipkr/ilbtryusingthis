@@ -134,7 +134,7 @@ resource "google_compute_url_map" "serverlesshttploadbalancerfrontend" {
 # 7. HTTPS proxy
 #--------------------------------------------------------------------------------------
 
-resource "google_compute_target_https_proxy" "default" {
+*/resource "google_compute_target_https_proxy" "default" {
   project = var.google_project
   name    = "mobility-https-proxy"
   # Attach the URL map
@@ -142,6 +142,22 @@ resource "google_compute_target_https_proxy" "default" {
   ssl_certificates = [google_compute_managed_ssl_certificate.managedcertificate.id]
   ssl_policy       = google_compute_ssl_policy.restrictedsslpolicy.name
 
+}
+*/
+resource "google_compute_target_http_proxy" "http" {
+  count   = local.certs_provided ? 0 : 1
+  name    = "crilb-http-proxy"
+  project = var.google_project
+  url_map = google_compute_url_map.serverlesshttploadbalancerfrontend.self_link
+}
+
+resource "google_compute_target_https_proxy" "https" {
+  count                              = local.certs_provided ? 1 : 0
+  name                               = "crilb-https-proxy"
+  project                            = var.google_project
+  url_map                            = google_compute_url_map.serverlesshttploadbalancerfrontend.self_link
+  # Cross-region ILB must use Certificate Manager certs (GLOBAL scope)
+  certificate_manager_certificates   = var.certificate_manager_certificate_ids
 }
 
 #--------------------------------------------------------------------------------------
