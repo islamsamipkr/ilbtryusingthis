@@ -3,7 +3,7 @@
 variable "project_name" {
   description = "The short name of the project/application"
   type        = string
-  default     = "moba025ebill"
+  default     = "abcd"
 }
 
 variable "region" {
@@ -15,26 +15,26 @@ variable "region" {
 variable "project_id" {
   description = "GCP project ID"
   type        = string
-  default     = "cnr-moba025ebill-dev-d28b"
+  default     = "uclodia-424702"
 }
 
 # Global HTTPS Load Balancer configuration
 variable "global_ip_address_name" {
   description = "Name of the global IP address for the load balancer"
   type        = string
-  default     = "ebill"
+  default     = "abcd"
 }
 
 variable "loadbalancername" {
   description = "Name of the HTTPS load balancer"
   type        = string
-  default     = "ebill-httpsserverless-loadbalancer"
+  default     = "abcd-httpsserverless-loadbalancer"
 }
 
 variable "app" {
   description = "Application name"
   type        = string
-  default     = "ebill"
+  default     = "abcd"
 }
 
 variable "env" {
@@ -46,7 +46,7 @@ variable "env" {
 variable "hosts" {
   description = "List of hostnames to associate with the load balancer"
   type        = list(string)
-  default     = ["srv.ebill-fb-dev.web.cn.ca"]
+  default     = ["abcd.ca"]
 }
 
 variable "ssl" {
@@ -59,7 +59,7 @@ variable "dns_suffix" {
   description = "DNS suffix used for the environment"
 
   type        = string
-  default  ="ebill"
+  default  ="abcd"
 }
 variable "default_backend_function" {
   description = "DNS suffix used for the environment"
