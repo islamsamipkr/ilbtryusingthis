@@ -80,3 +80,8 @@ variable "url_map_name" {
   description = "**OPTIONAL:** URL Map name. By default a standard pattern is used. This input is an override that helps simplify the migration of existing load balancers to this module."
   default     = null
 }
+variable "certificate_manager_certificate_ids" {
+  description = "Optional list of *GLOBAL* Certificate Manager certificate IDs for HTTPS (cross-region ILB)"
+  type        = list(string)
+  default     = []
+}
