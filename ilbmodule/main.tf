@@ -155,6 +155,6 @@ resource "google_compute_global_forwarding_rule" "serverlesshttploadbalancerfron
   ip_address            = var.glb_ip_address # google_compute_global_address.cloudfunctionip.address
   port_range            = "443-443"
   project               = var.google_project
-  labels                = module.resource_labels.labels
+ // labels                = module.resource_labels.labels
   target                = google_compute_target_https_proxy.default.self_link
 }
