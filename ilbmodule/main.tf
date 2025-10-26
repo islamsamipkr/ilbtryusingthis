@@ -63,7 +63,7 @@ resource "google_compute_backend_service" "mobilitybackendservice" {
   for_each = module.neg
 
   connection_draining_timeout_sec = 0
-  load_balancing_scheme           = "EXTERNAL_MANAGED"
+  load_balancing_scheme           = "INTERNAL_MANAGED"
   locality_lb_policy              = "ROUND_ROBIN"
   name                            = "backend-${lower(trimspace(each.value.function_name))}"
   port_name                       = "http"
