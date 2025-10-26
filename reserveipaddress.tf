@@ -3,4 +3,6 @@ resource "google_compute_global_address" "cloudfunctionip" {
   project      = var.project_id
   address_type = "INTERNAL"
   ip_version   = "IPV4"
+purpose      = "GCE_ENDPOINT"
+
 }
