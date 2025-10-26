@@ -3,7 +3,7 @@ locals {
 }
 
 module "ilb" {
-  source = "./configs/"
+  source = "./ilbmodule/"
 
   google_project           = var.project_id
   google_labels            = var.google_labels
