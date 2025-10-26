@@ -8,10 +8,10 @@ variable "project_name" {
   description = "Mobility project name"
 }
 
-variable "google_labels" {
-  description = "Google labels to assign on the resources that will be created"
-  type        = map(string)
-}
+//variable "google_labels" {
+//  description = "Google labels to assign on the resources that will be created"
+//  type        = map(string)
+//}
 
 variable "neg_regions" {
   type        = list(string)
