@@ -67,4 +67,6 @@ variable "default_backend_function" {
   type        = string
   default  ="putUpdateLegacyInvoice"
 }
-
+variable "neg_region_list" {
+  type = list(string)
+}
