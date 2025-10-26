@@ -58,4 +58,5 @@ variable "ssl" {
 variable "dns_suffix" {
   description = "DNS suffix used for the environment"
   type        = string
-  default
+  default  ="ebill"
+}
