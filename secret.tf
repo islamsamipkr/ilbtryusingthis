@@ -9,7 +9,7 @@ locals {
         project_id  = try(secret.project_id, var.project_id)
         # replication_locations = try(secret.replication_locations, [])
         replication_locations = try(secret.replication_locations, s.secret_defaults.replication_locations)
-        labels      = merge(try(s.secret_defaults.labels, {}), try(var.google_labels, {}))
+        //labels      = merge(try(s.secret_defaults.labels, {}), try(var.google_labels, {}))
         secret_accessors_list = try(secret.secret_accessors_list, s.secret_defaults.secret_accessors_list)
         secret_admin_list = try(secret.secret_admin_list, s.secret_defaults.secret_admin_list)
     }
