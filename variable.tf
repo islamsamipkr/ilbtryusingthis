@@ -69,4 +69,5 @@ variable "default_backend_function" {
 }
 variable "neg_region_list" {
   type = list(string)
+  default=["northamerica-northeast1","us-central1"]
 }
