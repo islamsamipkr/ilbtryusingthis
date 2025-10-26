@@ -6,7 +6,7 @@ module "ilb" {
   source = "./ilbmodule/"
 
   google_project           = var.project_id
-  google_labels            = var.google_labels
+ // google_labels            = var.google_labels
   project_name             = var.project_name
   domain                   = var.hosts[0]
   glb_ip_address           = google_compute_global_address.cloudfunctionip.address
