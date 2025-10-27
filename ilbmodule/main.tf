@@ -134,7 +134,8 @@ resource "google_compute_url_map" "serverlesshttploadbalancerfrontend" {
 # 7. HTTPS proxy
 #--------------------------------------------------------------------------------------
 
-*/resource "google_compute_target_https_proxy" "default" {
+/*
+resource "google_compute_target_https_proxy" "default" {
   project = var.google_project
   name    = "mobility-https-proxy"
   # Attach the URL map
