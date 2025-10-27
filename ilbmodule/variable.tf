@@ -17,10 +17,6 @@ variable "neg_regions" {
   type        = list(string)
   description = "List of regions to deploy the network endpoing group (NEG)"
   validation {
-    condition     = length(var.neg_regions) >= 2
-    error_message = "At most 2 regions may be used"
-  }
-  validation {
     condition     = alltrue([for k in var.neg_regions : contains(["northamerica-northeast1", "northamerica-northeast2", "us-central1"], k)])
     error_message = "The supported regions are `northamerica-northeast1`, `northamerica-northeast2` and `us-central1`"
   }
