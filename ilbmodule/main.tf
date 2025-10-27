@@ -172,4 +172,10 @@ resource "google_compute_global_forwarding_rule" "serverlesshttploadbalancerfron
   project               = var.google_project
  // labels                = module.resource_labels.labels
   target                = google_compute_target_https_proxy.https.self_link
+  lifecycle {
+    precondition {
+      condition     = length(distinct(var.neg_region_list)) == 1
+      error_message = "Internal LB must target exactly one region."
+    }
+  }
 }
