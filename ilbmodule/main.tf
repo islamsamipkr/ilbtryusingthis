@@ -146,14 +146,12 @@ resource "google_compute_target_https_proxy" "default" {
 }
 */
 resource "google_compute_target_http_proxy" "http" {
-  count   = local.certs_provided ? 0 : 1
   name    = "crilb-http-proxy"
   project = var.google_project
   url_map = google_compute_url_map.serverlesshttploadbalancerfrontend.self_link
 }
 
 resource "google_compute_target_https_proxy" "https" {
-  count                              = local.certs_provided ? 1 : 0
   name                               = "crilb-https-proxy"
   project                            = var.google_project
   url_map                            = google_compute_url_map.serverlesshttploadbalancerfrontend.self_link
@@ -173,5 +171,5 @@ resource "google_compute_global_forwarding_rule" "serverlesshttploadbalancerfron
   port_range            = "443-443"
   project               = var.google_project
  // labels                = module.resource_labels.labels
-  target                = google_compute_target_https_proxy.default.self_link
+  target                = google_compute_target_https_proxy.https.self_link
 }
