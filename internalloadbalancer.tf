@@ -9,7 +9,7 @@ module "ilb" {
  // google_labels            = var.google_labels
   project_name             = var.project_name
   domain                   = var.hosts[0]
-  glb_ip_address           = google_compute_global_address.cloudfunctionip.address
+  glb_ip_address           = google_compute_address.cloudfunctionip.address
   url_map_name             = var.loadbalancername
   neg_regions              = var.neg_region_list
   //cloudarmorlink           = var.cloudarmorlink
