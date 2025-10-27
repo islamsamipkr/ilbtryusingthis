@@ -4,5 +4,5 @@ resource "google_compute_address" "cloudfunctionip" {
   address_type = "INTERNAL"
   ip_version   = "IPV4"
 purpose      = "GCE_ENDPOINT"
- region  =var.region
+ region  =  "northamerica-northeast1"
 }
