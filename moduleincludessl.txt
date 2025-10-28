@@ -1,0 +1,16 @@
+variable "ssl_certificate_self_link" {
+  description = "Self link to the regional SSL certificate for ILB"
+  type        = string
+}
+
+# You'll also need region/project if you create the regional HTTPS proxy in the module:
+variable "google_project" { type = string }
+variable "region"        { type = string }
+# Example: Regional HTTPS proxy for Internal HTTPS LB
+resource "google_compute_region_target_https_proxy" "this" {
+  name             = "${var.project_name}-ilb-https-proxy"
+  project          = var.google_project
+  region           = var.region
+  url_map          = google_compute_region_url_map.this.self_link
+  ssl_certificates = [var.ssl_certificate_self_link]
+}
