@@ -1,0 +1,62 @@
+# variables.tf
+variable "project_id" {}
+variable "project_name" {}
+variable "region" {}
+variable "env" {}
+variable "hosts" { type = list(string) }
+variable "loadbalancername" {}
+variable "neg_region_list" { type = list(string) }
+variable "default_backend_function" {}
+
+# Optional: make file names configurable
+variable "cert_file" {
+  description = "Path to the cert+chain PEM within ./cert"
+  type        = string
+  default     = "fullchain.pem"
+}
+variable "key_file" {
+  description = "Path to the unencrypted private key PEM within ./cert"
+  type        = string
+  default     = "privkey.pem"
+}
+
+locals {
+  config       = yamldecode(file("./configs/${var.env}/ilb.yaml"))
+  cert_folder  = "${path.root}/cert" # adjust if your cert folder is elsewhere
+  cert_path    = "${local.cert_folder}/${var.cert_file}"
+  key_path     = "${local.cert_folder}/${var.key_file}"
+}
+
+# INTERNAL HTTPS (Regional ILB) certificate
+resource "google_compute_region_ssl_certificate" "ilb_cert" {
+  name        = "${var.project_name}-ilb-cert"
+  project     = var.project_id
+  region      = var.region
+  certificate = file(local.cert_path)
+  private_key = file(local.key_path)
+}
+
+# Example internal IP (make sure this points to a regional subnetwork)
+resource "google_compute_address" "cloudfunctionip" {
+  name         = "ilb-ip"
+  project      = var.project_id
+  region       = var.region
+  address_type = "INTERNAL"
+  subnetwork   = var.subnetwork_self_link  # <- pass in or data-source it
+}
+
+module "ilb" {
+  source                   = "./ilbmodule/"
+
+  google_project           = var.project_id
+  project_name             = var.project_name
+  domain                   = var.hosts[0]
+  glb_ip_address           = google_compute_address.cloudfunctionip.address
+  url_map_name             = var.loadbalancername
+  neg_regions              = var.neg_region_list
+  functions_map            = local.config
+  default_backend_function = var.default_backend_function
+
+  # NEW: pass the cert into the module
+  ssl_certificate_self_link = google_compute_region_ssl_certificate.ilb_cert.self_link
+}
