@@ -14,3 +14,29 @@ resource "google_compute_region_target_https_proxy" "this" {
   url_map          = google_compute_region_url_map.this.self_link
   ssl_certificates = [var.ssl_certificate_self_link]
 }
+
+resource "google_compute_region_target_https_proxy" "default" {
+  name        = "ilb-target-https-proxy"
+  project     = var.project_id
+  region      = "us-central1"
+
+  url_map     = google_compute_region_url_map.default.self_link
+
+  # Either full resource name or just .id works:
+  certificate_manager_certificates = [
+    google_certificate_manager_certificate.default.id
+  ]
+}
+
+resource "google_certificate_manager_certificate" "default" {
+  name     = "my-certificate"
+  project  = var.project_id
+  location = "us-central1"   # must match the ILB region
+
+  self_managed {
+    pem_certificate = file("./cert/fullchain.pem")   # leaf + intermediates
+    pem_private_key = file("./cert/privkey.pem")     # unencrypted key
+  }
+}
+
+
